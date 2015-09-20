@@ -1,0 +1,104 @@
+
+
+share strategy
+
+
+
+
+https://github.com/mixdesign/AAShareBubbles
+
+
+[self presentViewController: activityViewController animated: YES completion:nil] :
+
+activityViewController.modalPresentationStyle = UIModalPresentationPopover;
+UIPopoverPresentationController *popPC = activityViewController.popoverPresentationController;
+popPC.barButtonItem = _activityBarButtonItem;
+popPC.permittedArrowDirections = UIPopoverArrowDirectionAny;
+
+NSString *textToShare = @"Look at this awesome website for aspiring iOS Developers!";
+NSURL *myWebsite = [NSURL URLWithString:@"http://www.codingexplorer.com/"];
+
+NSArray *objectsToShare = @[textToShare, myWebsite];
+
+UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+
+NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+UIActivityTypePrint,
+UIActivityTypeAssignToContact,
+UIActivityTypeSaveToCameraRoll,
+UIActivityTypeAddToReadingList,
+UIActivityTypePostToFlickr,
+UIActivityTypePostToVimeo];
+
+activityVC.excludedActivityTypes = excludeActivities;
+
+[self presentViewController:activityVC animated:YES completion:nil];
+
+
+
+UIActivityTypePostToFacebook
+UIActivityTypePostToTwitter
+UIActivityTypePostToWeibo
+UIActivityTypeMessage
+UIActivityTypeMail
+UIActivityTypePrint
+UIActivityTypeCopyToPasteboard
+UIActivityTypeAssignToContact
+UIActivityTypeSaveToCameraRoll
+UIActivityTypeAddToReadingList
+UIActivityTypePostToFlickr
+UIActivityTypePostToVimeo
+UIActivityTypePostToTencentWeibo
+UIActivityTypeAirDrop
+
+
+
+photo
+- basic edit
+
+video
+- trim
+https://github.com/itsmeichigo/ICGVideoTrimmer
+
+https://github.com/andrei200287/SAVideoRangeSlider
+
+
+
+https://developer.apple.com/library/ios/samplecode/AVSimpleEditoriOS/Introduction/Intro.html
+http://stackoverflow.com/questions/12714938/trim-video-without-displaying-uivideoeditorcontroller
+
+
+video to gif
+https://github.com/matthewpalmer/Regift
+
+
+share
+
+
+twitter
+photo
+https://gist.githubusercontent.com/balazsnemeth/cbdf3b352bb7a7df8661/raw/bdbb25683449fc7d4ef3286165be1dc90ef2c4cb/gistfile1.txt
+
+video
+
+facebook
+photo
+video
+
+
+instagram
+
+vine
+video
+
+
+INTEGRATION NOTES
+
+<key>NSAppTransportSecurity</key>
+<dict>
+<key>NSAllowsArbitraryLoads</key>
+<true/>
+</dict>
+
+
+
