@@ -6,11 +6,27 @@
 //  Copyright © 2015 jclaan. All rights reserved.
 //
 
+
+/*
+ 
+ 
+ step 1 -- get twitter account
+ step 2 -- INIT video
+ step 3 -- upload video in 5MB chunks
+ step 4 -- finalize video
+ step 5 -- send twitter status
+ 
+ 
+ 
+ */
+
+
 #import "TwitterVideoUploadActivity.h"
 
 #import <Social/Social.h>
 
 @import Accounts;
+@import AVFoundation;
 
 @interface TwitterVideoUploadActivity ()
 
@@ -18,6 +34,7 @@
 @property (nonatomic, strong) UIImage* image;
 @property (nonatomic, strong) ACAccount* twitterAccount;
 @property (nonatomic, strong) NSURL* videoURL;
+@property (nonatomic,strong) NSString *caption;
 @property (nonatomic,strong) NSURL* requestURL;
 @property (nonatomic,strong) NSString *mediaID;
 
@@ -56,16 +73,17 @@
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
     
+
+    
     for (id item in activityItems) {
         if ([item isKindOfClass:[NSURL class]]) {
             
             NSURL* url = item;
             
-            NSString *filenameext = [[url path] pathExtension];
-            
-            if ([filenameext isEqualToString:@"mov"] || [filenameext isEqualToString:@"mp4"] || [filenameext isEqualToString:@"m4v"] ) {
+            if ( [self isMovieFile:url]) {
+                self.videoURL = url;
                 return YES;
-            }    
+            };
         }
     }
     
@@ -75,13 +93,102 @@
 }
 
 
-
+- (BOOL) isMovieFile:(NSURL*)url {
+    
+    NSString *filenameext = [[url path] pathExtension];
+    
+    if ([filenameext isEqualToString:@"mov"] || [filenameext isEqualToString:@"mp4"] || [filenameext isEqualToString:@"m4v"] ) {
+        return YES;
+    }
+    
+      return NO;
+}
 
 
 
 - (UIViewController *)activityViewController {
-    SLComposeViewController *composeViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    return [self activityViewControllerWithComposeViewController:composeViewController];
+//    SLComposeViewController *composeViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+//    return [self activityViewControllerWithComposeViewController:composeViewController];
+//    
+//    
+//    
+//
+    
+    
+    
+    
+    //check for video length for twitter
+    
+    AVAsset *movie = [AVAsset assetWithURL:self.videoURL];
+    CGFloat movieLength = CMTimeGetSeconds(movie.duration);
+    
+    if (movieLength > 30.0) {
+        
+        UIAlertController * videoError=   [UIAlertController
+                                                  alertControllerWithTitle:@"Error"
+                                                  message:@"Your Video is longer than 30 seconds - please trim your video as Twitter has a max length of 30 seconds."
+                                                  preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       //Do Some action here
+                                              
+                                                       [self activityDidFinish:NO];
+                                                       
+                                                       
+                                                   }];
+        
+        [videoError addAction:ok];
+        
+        return videoError;
+        
+    }
+    
+    
+    //get caption
+    self.caption = [self firstStringOrEmptyStringFromArray:self.activityItems];
+    
+    
+    UIAlertController * twitterVideoShare=   [UIAlertController
+                                  alertControllerWithTitle:@"Share Video On Twitter"
+                                  message:@"With Caption:"
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Share" style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   //Do Some action here
+                                                   
+                                                   [self stepOne_getTwitterAccount];
+                                                   
+                                               }];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       //[alert dismissViewControllerAnimated:YES completion:nil];
+                                                       
+
+                                                       
+                                                       
+                                                       [self activityDidFinish:NO];
+                                                       
+                                                   }];
+  
+    
+    [twitterVideoShare addAction:ok];
+    [twitterVideoShare addAction:cancel];
+    
+    
+
+    
+    
+    [twitterVideoShare addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Caption";
+        textField.text = self.caption;
+    }];
+    
+    
+    return twitterVideoShare;
+    
+    
 }
 
 # pragma mark - Helpers (UIActivity)
@@ -95,78 +202,17 @@
     return @"";
 }
 
-- (UIViewController *)activityViewControllerWithComposeViewController:(SLComposeViewController *)composeViewController {
- 
-    [composeViewController setInitialText:[self firstStringOrEmptyStringFromArray:self.activityItems]];
-    for (id item in self.activityItems) {
-        if ([item isKindOfClass:[UIImage class]]) {
-            [composeViewController addImage:item];
-            
-            self.image = item;
-            
-        }
-    }
-    for (id item in self.activityItems) {
-        if ([item isKindOfClass:[NSURL class]]) {
-           
-            //@TODO: add some checking about being a mov file
-            
-            self.videoURL = item;
-            //[composeViewController addURL:item];
-        }
-    }
-    __weak typeof(self) weakSelf = self;
-//    composeViewController.completionHandler = ^(SLComposeViewControllerResult result) {
-//        BOOL completed = (result == SLComposeViewControllerResultDone);
-//        
-//        [weakSelf getTwitterAccount];
-//        //[weakSelf activityDidFinish:completed];
-//    };
-//    
-//    return composeViewController;
-    
-    UIAlertController * alert=   [UIAlertController
-                                  alertControllerWithTitle:@"My Title"
-                                  message:@"Enter User Credentials"
-                                  preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                               handler:^(UIAlertAction * action) {
-                                                   //Do Some action here
-                                                   
-                                                   [weakSelf stepOne_getTwitterAccount];
-                                                   
-                                               }];
-    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction * action) {
-                                                       [alert dismissViewControllerAnimated:YES completion:nil];
-                                                   }];
-    
-    [alert addAction:ok];
-    [alert addAction:cancel];
-    
-    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"Caption";
-    }];
-
-
-    
-    return alert;
-}
-
-
-
 
 - (void)performActivity
 {
-    // This is where you can do anything you want, and is the whole reason for creating a custom
-    // UIActivity
+    // THIS DOESNT GET CALLED
     
 
     
 
 }
 
+# pragma mark - UPLOAD STEPS
 
 - (void) stepOne_getTwitterAccount {
     
@@ -176,6 +222,8 @@
     [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
         if (!granted) {
             NSLog(@"Access denied.");
+            [self activityDidFinish:NO];
+            return;
         }
         else {
             NSArray *accounts = [accountStore accountsWithAccountType:accountType];
@@ -183,34 +231,48 @@
                self.twitterAccount = [accounts objectAtIndex:0];
                 
                 
+                //START
                 [self stepTwo_getMedia_id_withCompletion:^(NSNumber *mediaID, NSError *error) {
+                    
+                    if (error) {
+                        [self activityDidFinish:NO];
+                        return;
+                    }
+                    
                     
                     
                     NSLog(@"MEDIA ID: %@", mediaID);
                     
                     self.mediaID = [mediaID stringValue];
                     
-                    __strong typeof(self) strongSelf = self;
+                    //__strong typeof(self) strongSelf = self;
       
                     
-                    [strongSelf postMediaUploadAPPENDWithVideoURL:self.videoURL
-                                                          mediaID:self.mediaID
-                     
-                                                     successBlock:^(id response) {
+                    //this one has its own error block
+                    [self stepThree_APPEND_videoWithsuccessBlock:^(id response) {
                                                          
                                
                          NSLog(@"RESPONSE %@", response);
                      
-                         [self stepFour_finalizeUploadwithSuccessBlock:^(id response) {
-                         
+                         [self stepFour_finalizeUploadwithSuccessBlock:^(id response, NSError *error) {
+                             if (error) {
+                                 [self activityDidFinish:NO];
+                                 return;
+                             }
+                             
+                             
                              NSLog(@"RESPONSE %@", response);
                          
-                             [self stepFive_postStatuswithSuccessBlock:^(id response) {
+                             [self stepFive_postStatuswithSuccessBlock:^(id response, NSError *error) {
+                                 if (error) {
+                                     [self activityDidFinish:NO];
+                                     return;
+                                 }
                                  
                                  NSLog(@"RESPONSE %@", response);
                                  
                                  //WE ARE DONE
-                                 [self activityDidFinish:completed];
+                                 [self activityDidFinish:YES];
                                  
                                  
                              }];
@@ -221,8 +283,12 @@
                                                          
                                                          
                                                          
-                                                         
-                            } errorBlock:nil];
+                    //STEP 3 ERROR Block
+                    } errorBlock:^(NSError* error){
+                    
+                     [self activityDidFinish:NO];
+                    
+                    }];
             
                 
                 
@@ -242,10 +308,10 @@
     
 }
 
-- (void)stepFive_postStatuswithSuccessBlock:(void(^)(id response))successBlock {
+- (void)stepFive_postStatuswithSuccessBlock:(void(^)(id response, NSError *error))successBlock {
 
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
-    md[@"status"] = @"hey we got the video uploaded";
+    md[@"status"] = self.caption;
     md[@"media_ids"] = self.mediaID;
 
     
@@ -279,12 +345,12 @@
              if (successBlock) {
                  
                  
-                 successBlock(json[@"id"]);
+                 successBlock(json[@"id"],nil);
              }
          }
          else {
              if (successBlock) {
-                 successBlock(nil);
+                 successBlock(nil,error);
              }
              
          }
@@ -296,7 +362,7 @@
 
 
 
-- (void)stepFour_finalizeUploadwithSuccessBlock:(void(^)(id response))successBlock {
+- (void)stepFour_finalizeUploadwithSuccessBlock:(void(^)(id response, NSError *error))successBlock {
     
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
     md[@"command"] = @"FINALIZE";
@@ -330,12 +396,12 @@
              if (successBlock) {
                  
                  
-                 successBlock(json[@"media_id"]);
+                 successBlock(json[@"media_id"], nil);
              }
          }
          else {
              if (successBlock) {
-                 successBlock(nil);
+                 successBlock(nil, error);
              }
              
          }
@@ -345,7 +411,7 @@
 
 
 
-//https://github.com/nst/STTwitter/blob/f6302b0aaaa7d670dca94bb3145507982173e281/STTwitter/STTwitterAPI.m
+
 
 - (void)stepTwo_getMedia_id_withCompletion:(void(^)(NSNumber *mediaID, NSError *error))completion {
     
@@ -353,6 +419,10 @@
     
     if(data == nil) {
         //TODO: error
+        NSError *error = nil;
+        error = [NSError errorWithDomain:@"com.laan.labs" code:200 userInfo:@{@"Error reason": @"File is Nil"}];
+        
+        completion(nil,error);
     }
     
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
@@ -364,14 +434,6 @@
     
    self.requestURL = [[NSURL alloc] initWithString:@"https://upload.twitter.com/1.1/media/upload.json"];
     
-    //Get image data
-//    NSData *data = img;
-//    if ([img isKindOfClass:[UIImage class]]) {
-//        data = UIImagePNGRepresentation(img);
-//    }
-    
-    
-
 
     
     SLRequest *postRequest = [SLRequest
@@ -380,10 +442,7 @@
                               URL:self.requestURL parameters:md];
     
     
-    
-    //Setup upload TW request
-    //[postRequest addMultipartData:data withName:@"media" type:@"image/png" filename:@"image.png"];
-    
+   
     postRequest.account = self.twitterAccount;
     
     //Post the request to get the media ID
@@ -420,9 +479,7 @@
 }
 
 
-- (void)postMediaUploadAPPENDWithVideoURL:(NSURL *)videoMediaURL
-                                  mediaID:(NSString *)mediaID
-                             successBlock:(void(^)(id response))successBlock
+- (void)stepThree_APPEND_videoWithsuccessBlock:(void(^)(id response))successBlock
                                errorBlock:(void(^)(NSError *error))errorBlock {
     
     // https://dev.twitter.com/rest/public/uploading-media
@@ -436,7 +493,7 @@
      //TODO: error
     }
     
-    NSString *fileName = [videoMediaURL isFileURL] ? [[videoMediaURL path] lastPathComponent] : @"media.jpg";
+    NSString *fileName = [self.videoURL lastPathComponent];
     
     NSUInteger fiveMegaBytes = 5 * (int) pow((double) 2,20);
     
@@ -469,7 +526,7 @@
             
             NSMutableDictionary *md = [NSMutableDictionary dictionary];
             md[@"command"] = @"APPEND";
-            md[@"media_id"] = mediaID;
+            md[@"media_id"] = self.mediaID;
             md[@"segment_index"] = [NSString stringWithFormat:@"%lu", (unsigned long)segmentIndex];
             //md[@"media"] = subData;
             //md[@"kSTPOSTDataKey"] = @"media"; //dummy var

@@ -104,13 +104,16 @@
     //-- define the activity view completion handler
     avc.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError)
     {
+        
+        NSLog(@"ERROR: %@", activityError);
+        
         if (completed) {
-            // NSLog(@"Selected activity was performed.");
+            NSLog(@"Selected activity was performed.");
         } else {
             if (activityType == NULL) {
-                //   NSLog(@"User dismissed the view controller without making a selection.");
+                NSLog(@"User dismissed the view controller without making a selection.");
             } else {
-                //  NSLog(@"Activity was not performed.");
+                NSLog(@"Activity was not performed.");
             }
         }
     };
