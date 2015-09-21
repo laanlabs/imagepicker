@@ -73,6 +73,24 @@
 }
 
 
++(void)saveImageURLToCameraRoll:(NSURL*)imageURL location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock{
+    __block PHObjectPlaceholder *placeholderAsset = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        PHAssetChangeRequest *newAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:imageURL];
+        newAssetRequest.location = location;
+        newAssetRequest.creationDate = [NSDate date];
+        placeholderAsset = newAssetRequest.placeholderForCreatedAsset;
+    } completionHandler:^(BOOL success, NSError *error) {
+        if(success){
+            PHAsset *asset = [self getAssetFromlocalIdentifier:placeholderAsset.localIdentifier];
+            completionBlock(asset, YES);
+        } else {
+            completionBlock(nil, NO);
+        }
+    }];
+}
+
+
 +(void)saveImageToCameraRoll:(UIImage*)image location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock{
     __block PHObjectPlaceholder *placeholderAsset = nil;
     [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{

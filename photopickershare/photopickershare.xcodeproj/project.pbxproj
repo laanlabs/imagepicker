@@ -19,6 +19,9 @@
 		7F7B56421BAFA66100B70BEB /* ICGRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B563C1BAFA66100B70BEB /* ICGRulerView.m */; settings = {ASSET_TAGS = (); }; };
 		7F7B56431BAFA66100B70BEB /* ICGThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B563E1BAFA66100B70BEB /* ICGThumbView.m */; settings = {ASSET_TAGS = (); }; };
 		7F7B56441BAFA66100B70BEB /* ICGVideoTrimmerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56411BAFA66100B70BEB /* ICGVideoTrimmerView.m */; settings = {ASSET_TAGS = (); }; };
+		7F7B564F1BAFC05D00B70BEB /* NSGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B564E1BAFC05D00B70BEB /* NSGIF.m */; settings = {ASSET_TAGS = (); }; };
+		7F7B56521BAFCEB100B70BEB /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56511BAFCEB100B70BEB /* AnimatedGIFImageSerialization.m */; settings = {ASSET_TAGS = (); }; };
+		7F7B56551BAFD23500B70BEB /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56541BAFD23500B70BEB /* UIImage+animatedGIF.m */; settings = {ASSET_TAGS = (); }; };
 		7F900C071BAE04AF00A50D0D /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F900C061BAE04AF00A50D0D /* todo.txt */; settings = {ASSET_TAGS = (); }; };
 		7FF927C01BAA202D0073885E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF927BF1BAA202D0073885E /* main.m */; };
 		7FF927C31BAA202D0073885E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF927C21BAA202D0073885E /* AppDelegate.m */; };
@@ -51,6 +54,12 @@
 		7F7B56401BAFA66100B70BEB /* ICGVideoTrimmerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGVideoTrimmerView.h; sourceTree = "<group>"; };
 		7F7B56411BAFA66100B70BEB /* ICGVideoTrimmerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGVideoTrimmerView.m; sourceTree = "<group>"; };
 		7F7B56451BAFB15300B70BEB /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		7F7B564D1BAFC05D00B70BEB /* NSGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSGIF.h; sourceTree = "<group>"; };
+		7F7B564E1BAFC05D00B70BEB /* NSGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSGIF.m; sourceTree = "<group>"; };
+		7F7B56501BAFCEB100B70BEB /* AnimatedGIFImageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGIFImageSerialization.h; sourceTree = "<group>"; };
+		7F7B56511BAFCEB100B70BEB /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = "<group>"; };
+		7F7B56531BAFD23500B70BEB /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		7F7B56541BAFD23500B70BEB /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		7F900C061BAE04AF00A50D0D /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo.txt; sourceTree = "<group>"; };
 		7FF927BA1BAA202D0073885E /* photopickershare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photopickershare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF927BE1BAA202D0073885E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -108,6 +117,19 @@
 			name = trimmer;
 			sourceTree = "<group>";
 		};
+		7F7B56461BAFB75800B70BEB /* gif */ = {
+			isa = PBXGroup;
+			children = (
+				7F7B56531BAFD23500B70BEB /* UIImage+animatedGIF.h */,
+				7F7B56541BAFD23500B70BEB /* UIImage+animatedGIF.m */,
+				7F7B564D1BAFC05D00B70BEB /* NSGIF.h */,
+				7F7B56501BAFCEB100B70BEB /* AnimatedGIFImageSerialization.h */,
+				7F7B56511BAFCEB100B70BEB /* AnimatedGIFImageSerialization.m */,
+				7F7B564E1BAFC05D00B70BEB /* NSGIF.m */,
+			);
+			name = gif;
+			sourceTree = "<group>";
+		};
 		7F900C051BAE044D00A50D0D /* media */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,7 +141,6 @@
 				7FF927EF1BAA37B70073885E /* MediaAssetViewController.m */,
 				7FF927F01BAA37B70073885E /* MediaGridViewCell.h */,
 				7FF927F11BAA37B70073885E /* MediaGridViewCell.m */,
-				7F900C061BAE04AF00A50D0D /* todo.txt */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -144,10 +165,12 @@
 		7FF927BC1BAA202D0073885E /* photopickershare */ = {
 			isa = PBXGroup;
 			children = (
+				7F900C061BAE04AF00A50D0D /* todo.txt */,
 				7F7B56311BAE734200B70BEB /* trim.mp4 */,
 				7F7B56261BAE3D1B00B70BEB /* IMG_0240.mp4 */,
 				7F7B56281BAE3DF200B70BEB /* video.m4v */,
 				7F7B56241BAE3B4B00B70BEB /* wine.png */,
+				7F7B56461BAFB75800B70BEB /* gif */,
 				7F7B563A1BAFA64C00B70BEB /* trimmer */,
 				7F7B56391BAFA63C00B70BEB /* utils */,
 				7F900C051BAE044D00A50D0D /* media */,
@@ -199,6 +222,7 @@
 		7FF927B21BAA202D0073885E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = jclaan;
 				TargetAttributes = {
@@ -252,12 +276,15 @@
 				7F7B56351BAF351300B70BEB /* PHAsset+Utility.m in Sources */,
 				7FF927F31BAA37B70073885E /* MediaAssetViewController.m in Sources */,
 				7FF927F71BAA39A40073885E /* MediaAlbumsListViewController.m in Sources */,
+				7F7B56551BAFD23500B70BEB /* UIImage+animatedGIF.m in Sources */,
 				7F7B562E1BAE450200B70BEB /* TwitterVideoUploadActivity.m in Sources */,
 				7FF927F41BAA37B70073885E /* MediaGridViewCell.m in Sources */,
+				7F7B564F1BAFC05D00B70BEB /* NSGIF.m in Sources */,
 				7FF927C31BAA202D0073885E /* AppDelegate.m in Sources */,
 				7F7B56381BAF44F400B70BEB /* MBProgressHUD.m in Sources */,
 				7FF927C01BAA202D0073885E /* main.m in Sources */,
 				7F7B56441BAFA66100B70BEB /* ICGVideoTrimmerView.m in Sources */,
+				7F7B56521BAFCEB100B70BEB /* AnimatedGIFImageSerialization.m in Sources */,
 				7FF927F21BAA37B70073885E /* MediaAssetGridViewController.m in Sources */,
 				7F7B56431BAFA66100B70BEB /* ICGThumbView.m in Sources */,
 			);
@@ -353,10 +380,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = photopickershare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.laan.labs.photopickershare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "photopickershare/photopickershare-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -364,10 +394,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = photopickershare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.laan.labs.photopickershare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "photopickershare/photopickershare-Bridging-Header.h";
 			};
 			name = Release;
 		};

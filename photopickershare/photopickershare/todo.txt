@@ -1,5 +1,14 @@
 
 
+
+
+displaying gifs
+https://github.com/mattt/AnimatedGIFImageSerialization/tree/master/AnimatedGIFImageSerialization
+
+https://github.com/sunapi386/hackzurich14/tree/f839904b3692b1a60a5a8e61470138941fe3bf4f/GifMeIt
+
+
+
 NEXT STEPS
 
 - open default pickerer (as ref) - DONE

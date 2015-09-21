@@ -54,6 +54,8 @@ typedef void (^PHAssetAssetBoolBlock)(PHAsset *asset, BOOL success);
  @param         creationDate           An NSDate to be written to the PHAsset.
  @param         completionBlock        Returns the PHAsset which was written and BOOL for success. This parameter may be nil.
  */
++(void)saveImageURLToCameraRoll:(NSURL*)imageURL location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock;
+
 +(void)saveVideoAtURL:(NSURL*)url location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock;
 
 +(void)ensureAlbumExistsWithTitle:(NSString*)title;

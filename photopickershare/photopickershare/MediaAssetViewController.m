@@ -7,6 +7,9 @@
 #import "PHAsset+Utility.h"
 #import "constants.h"
 
+#import "NSGIF.h"
+#import "UIImage+animatedGIF.h"
+
 @import Photos;
 
 
@@ -31,6 +34,7 @@
 @interface MediaAssetViewController () <PHPhotoLibraryChangeObserver,ICGVideoTrimmerDelegate>
 @property (strong)  UIImageView *imageView;
 @property (strong)  NSURL  *videoURL;
+@property (strong)  NSURL  *imageURL;
 @property (strong)  UIBarButtonItem *playButton;
 @property (strong)  UIBarButtonItem *space;
 @property (strong)  UIBarButtonItem *trashButton;
@@ -154,6 +158,19 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
     [self.view addSubview:self.toolbar];
 
     
+ 
+    
+    
+
+    
+    
+    
+    
+}
+
+-(void) addTrimUI {
+    //THIS NEEDS TO BE CALLED AFTER PLAYER IS CREATED
+    
     //add trimmer and hide it
     if (self.asset.mediaType == PHAssetMediaTypeVideo) {
         
@@ -181,10 +198,9 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
         
         
     }
-    
-    
-    
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -209,7 +225,7 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
 //    self.trashButton.enabled = isTrashable;
     
     [self.view layoutIfNeeded];
-    [self updateImage];
+    //[self updateImage];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -244,9 +260,43 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
 {
     [super viewWillLayoutSubviews];
     
-    if (!CGSizeEqualToSize(self.imageView.bounds.size, self.lastImageViewSize)) {
-        [self updateImage];
-    }
+    PHImageRequestOptions * imageRequestOptions = [[PHImageRequestOptions alloc] init];
+    imageRequestOptions.synchronous = YES;
+    [[PHImageManager defaultManager]
+     requestImageDataForAsset:self.asset
+     options:imageRequestOptions
+     resultHandler:^(NSData *imageData, NSString *dataUTI,
+                     UIImageOrientation orientation,
+                     NSDictionary *info)
+     {
+         NSLog(@"info = %@", dataUTI);
+         if ([info objectForKey:@"PHImageFileURLKey"]) {
+             // path looks like this -
+             // file:///var/mobile/Media/DCIM/###APPLE/IMG_####.JPG
+             NSURL *url = [info objectForKey:@"PHImageFileURLKey"];
+             
+             self.imageURL = url;
+             
+             //[self shareWithURL:url];
+             
+             if ([dataUTI isEqualToString:@"com.compuserve.gif"]) {
+                 
+                 UIImage* animatedGif = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                 
+                 self.imageView.image  = [UIImage animatedImageWithAnimatedGIFURL:url];
+                 
+             } else {
+                 if (!CGSizeEqualToSize(self.imageView.bounds.size, self.lastImageViewSize)) {
+                     [self updateImage];
+                 }
+             }
+             
+             
+         }
+     }];
+    
+    
+
 }
 
 - (void)updateImage
@@ -298,6 +348,8 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
                     CALayer *layer = self.view.layer;
                     [layer addSublayer:self.playerLayer];
                     [self.playerLayer setFrame:layer.bounds];
+                    
+                    [self addTrimUI];
                     
                     
                 }
@@ -448,10 +500,64 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
     }
 }
 
-#pragma mark - BUTTON ITEMS
+#pragma mark - GIF
 
 - (void)handleGIFButton:(id)sender
 {
+    
+    
+    [NSGIF optimalGIFfromURL:self.videoURL loopCount:0 completion:^(NSURL *GifURL) {
+        
+        NSLog(@"URL %@", GifURL);
+        [self saveImage:GifURL];
+        
+    }];
+    
+
+    //[NSGIF createGIFfromURL:inputURL withFrameCount:frameCount delayTime:delayTime loopCount:loopCount completion:^(NSURL *GifURL) {}];
+    
+    
+}
+
+
+- (void) saveImage:(NSURL*)imageURL {
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [PHAsset saveImageURLToCameraRoll:imageURL location:nil completionBlock:^(PHAsset *asset, BOOL success) {
+                if(success){
+                    NSLog(@"Success adding image to Photos");
+                    hud.labelText = @"Writing image...";
+                    [asset saveToAlbum:FACESWAPPERALBUM completionBlock:^(BOOL success) {
+                        if(success){
+                            NSLog(@"Success adding video to App Album");
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [UIView animateWithDuration:0.3 animations:^{
+                                    //self.exitButton.alpha = 1.0;
+                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                                }];
+                            });
+                        } else {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                            });
+                            NSLog(@"Error adding image to App Album");
+                        }
+                    }];
+                } else {
+                    NSLog(@"Error adding image to Photos");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    });
+                }
+            }];
+        });
+    }];
     
     
 }
@@ -459,9 +565,7 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
 
 
 
-
-
-
+#pragma mark - BUTTON ITEMS
 
 - (void)handlePlayButtonItem:(id)sender
 {
@@ -512,8 +616,34 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
 - (void)handleShareButtonItem:(id)sender
 {
     
+    PHImageRequestOptions * imageRequestOptions = [[PHImageRequestOptions alloc] init];
+    imageRequestOptions.synchronous = YES;
+    [[PHImageManager defaultManager]
+     requestImageDataForAsset:self.asset
+     options:imageRequestOptions
+     resultHandler:^(NSData *imageData, NSString *dataUTI,
+                     UIImageOrientation orientation,
+                     NSDictionary *info)
+     {
+         //NSLog(@"info = %@", info);
+         if ([info objectForKey:@"PHImageFileURLKey"]) {
+             // path looks like this -
+             // file:///var/mobile/Media/DCIM/###APPLE/IMG_####.JPG
+             NSURL *url = [info objectForKey:@"PHImageFileURLKey"];
+             
+             [self shareWithURL:url];
+             
+         }
+     }];
     
+}
+
+
+-(void)shareWithURL:(NSURL*)mediaURL {
+
     NSArray * shareItems = @[];
+    
+    
     
     if (self.asset.mediaType == PHAssetMediaTypeVideo) {
   
@@ -525,7 +655,7 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
     } else {
         
         NSString * message = @"My too cool Son";
-        shareItems = @[message, self.imageView.image];
+        shareItems = @[message, mediaURL];
         
     }
     

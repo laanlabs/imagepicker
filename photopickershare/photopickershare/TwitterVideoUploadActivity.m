@@ -105,9 +105,9 @@
 
 - (BOOL) isMovieFile:(NSURL*)url {
     
-    NSString *filenameext = [[url path] pathExtension];
+    NSString *filenameext = [[[url path] pathExtension] lowercaseString];
     
-    if ([filenameext caseInsensitiveCompare:@"mov"] || [filenameext caseInsensitiveCompare:@"mp4"] || [filenameext caseInsensitiveCompare:@"m4v"] ) {
+    if ([filenameext isEqualToString:@"mov"] || [filenameext isEqualToString:@"mp4"] || [filenameext isEqualToString:@"m4v"] ) {
         return YES;
     }
     
