@@ -1,55 +1,33 @@
 
 
+NEXT STEPS
+
+- open default pickerer (as ref) - DONE
+- save image / video to specific album -- with that album being created turning on acess etc - DONE
+
+
+
+- custom picker
+ dismiss button
+move custom album above
+
+ - pick and return
+ - share
+ - trim
+ - photo edit ???
+ - convert to GIF
+
+
+
+
 share strategy
 
 
 
 
-https://github.com/mixdesign/AAShareBubbles
-
-
-[self presentViewController: activityViewController animated: YES completion:nil] :
-
-activityViewController.modalPresentationStyle = UIModalPresentationPopover;
-UIPopoverPresentationController *popPC = activityViewController.popoverPresentationController;
-popPC.barButtonItem = _activityBarButtonItem;
-popPC.permittedArrowDirections = UIPopoverArrowDirectionAny;
-
-NSString *textToShare = @"Look at this awesome website for aspiring iOS Developers!";
-NSURL *myWebsite = [NSURL URLWithString:@"http://www.codingexplorer.com/"];
-
-NSArray *objectsToShare = @[textToShare, myWebsite];
-
-UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-
-NSArray *excludeActivities = @[UIActivityTypeAirDrop,
-UIActivityTypePrint,
-UIActivityTypeAssignToContact,
-UIActivityTypeSaveToCameraRoll,
-UIActivityTypeAddToReadingList,
-UIActivityTypePostToFlickr,
-UIActivityTypePostToVimeo];
-
-activityVC.excludedActivityTypes = excludeActivities;
-
-[self presentViewController:activityVC animated:YES completion:nil];
 
 
 
-UIActivityTypePostToFacebook
-UIActivityTypePostToTwitter
-UIActivityTypePostToWeibo
-UIActivityTypeMessage
-UIActivityTypeMail
-UIActivityTypePrint
-UIActivityTypeCopyToPasteboard
-UIActivityTypeAssignToContact
-UIActivityTypeSaveToCameraRoll
-UIActivityTypeAddToReadingList
-UIActivityTypePostToFlickr
-UIActivityTypePostToVimeo
-UIActivityTypePostToTencentWeibo
-UIActivityTypeAirDrop
 
 
 
@@ -90,6 +68,12 @@ instagram
 
 vine
 video
+
+
+
+RESOURCES
+https://github.com/zakkhoyt/VWWPermissionKit
+
 
 
 INTEGRATION NOTES

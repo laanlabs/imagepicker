@@ -67,8 +67,24 @@ static CGSize AssetGridThumbnailSize;
 
 #define kCellsPerRow 3
 
+-(void)close:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{ NSLog(@"controller dismissed"); }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+     [self.navigationItem setTitle:@"FaceSwapper"];
+  
+    
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
+                                                                              style:UIBarButtonItemStyleDone
+                                                                             target:self
+                                                                             action:@selector(close:)];
+    
     
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     
@@ -100,11 +116,11 @@ static CGSize AssetGridThumbnailSize;
     CGSize cellSize = ((UICollectionViewFlowLayout *)layout).itemSize;
     AssetGridThumbnailSize = CGSizeMake(cellSize.width * scale, cellSize.height * scale);
     
-    if (!self.assetCollection || [self.assetCollection canPerformEditOperation:PHCollectionEditOperationAddContent]) {
-        self.navigationItem.rightBarButtonItem = self.addButton;
-    } else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
+//    if (!self.assetCollection || [self.assetCollection canPerformEditOperation:PHCollectionEditOperationAddContent]) {
+//        self.navigationItem.rightBarButtonItem = self.addButton;
+//    } else {
+//        self.navigationItem.rightBarButtonItem = nil;
+//    }
     
     
     
@@ -151,6 +167,24 @@ static CGSize AssetGridThumbnailSize;
 //    assetViewController.asset = self.assetsFetchResults[indexPath.item];
 //    assetViewController.assetCollection = self.assetCollection;
 //}
+
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"select path");
+    
+    MediaAssetViewController *assetViewController = [[MediaAssetViewController alloc] init];
+    assetViewController.asset = self.assetsFetchResults[indexPath.item];
+    assetViewController.assetCollection = self.assetCollection;
+    
+    
+    [[self navigationController] pushViewController:assetViewController animated:YES];
+
+    
+}
+
+
+
 
 #pragma mark - PHPhotoLibraryChangeObserver
 

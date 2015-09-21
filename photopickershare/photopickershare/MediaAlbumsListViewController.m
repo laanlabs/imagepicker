@@ -25,6 +25,11 @@ static NSString * const CollectionSegue = @"showCollection";
     
      [self.navigationItem setTitle:@"Albums"];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
+                                                                             style:UIBarButtonItemStyleDone
+                                                                            target:self
+                                                                            action:@selector(close:)];
+    
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:AllPhotosReuseIdentifier];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CollectionCellReuseIdentifier];
@@ -33,11 +38,53 @@ static NSString * const CollectionSegue = @"showCollection";
     
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
-    self.collectionsFetchResults = @[smartAlbums, topLevelUserCollections];
-    self.collectionsLocalizedTitles = @[NSLocalizedString(@"Smart Albums", @""), NSLocalizedString(@"Albums", @"")];
+    self.collectionsFetchResults = @[topLevelUserCollections,smartAlbums];
+    self.collectionsLocalizedTitles = @[NSLocalizedString(@"Albums", @""), NSLocalizedString(@"Smart Albums", @"")];
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    
+    [self jumpToPrefferedAlbum];
+    
 }
+
+-(void)close:(id)sender
+{
+    
+    [self dismissViewControllerAnimated:YES completion:^{ NSLog(@"controller dismissed"); }];
+}
+
+
+-(void) jumpToPrefferedAlbum {
+    
+    
+    MediaAssetGridViewController *assetGridViewController = [[MediaAssetGridViewController alloc] init];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"localizedTitle = %@", self.prefferedAlbum];
+    PHFetchOptions *options = [[PHFetchOptions alloc]init];
+    options.predicate = predicate;
+    PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAny options:options];
+    if(result.count){
+        PHCollection *collection =  result[0];
+        if ([collection isKindOfClass:[PHAssetCollection class]]) {
+            PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
+            PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+            assetGridViewController.assetsFetchResults = assetsFetchResult;
+            assetGridViewController.assetCollection = assetCollection;
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+    [[self navigationController] pushViewController:assetGridViewController animated:NO];
+    
+    
+    
+}
+
 
 - (void)dealloc
 {
@@ -153,9 +200,13 @@ static NSString * const CollectionSegue = @"showCollection";
             }
         }
     
-        NSLog(@"Results %@", assetGridViewController.assetsFetchResults);
+        //NSLog(@"Results %@", assetGridViewController.assetsFetchResults);
     
         [[self navigationController] pushViewController:assetGridViewController animated:YES];
+    
+
+
+    
     
 }
 

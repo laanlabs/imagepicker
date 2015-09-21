@@ -14,6 +14,11 @@
 		7F7B562E1BAE450200B70BEB /* TwitterVideoUploadActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B562D1BAE450200B70BEB /* TwitterVideoUploadActivity.m */; settings = {ASSET_TAGS = (); }; };
 		7F7B56301BAE47EB00B70BEB /* videoTwitterActivity.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F7B562F1BAE47EB00B70BEB /* videoTwitterActivity.xcassets */; settings = {ASSET_TAGS = (); }; };
 		7F7B56321BAE734200B70BEB /* trim.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7F7B56311BAE734200B70BEB /* trim.mp4 */; settings = {ASSET_TAGS = (); }; };
+		7F7B56351BAF351300B70BEB /* PHAsset+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56331BAF351300B70BEB /* PHAsset+Utility.m */; settings = {ASSET_TAGS = (); }; };
+		7F7B56381BAF44F400B70BEB /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56361BAF44F400B70BEB /* MBProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
+		7F7B56421BAFA66100B70BEB /* ICGRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B563C1BAFA66100B70BEB /* ICGRulerView.m */; settings = {ASSET_TAGS = (); }; };
+		7F7B56431BAFA66100B70BEB /* ICGThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B563E1BAFA66100B70BEB /* ICGThumbView.m */; settings = {ASSET_TAGS = (); }; };
+		7F7B56441BAFA66100B70BEB /* ICGVideoTrimmerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56411BAFA66100B70BEB /* ICGVideoTrimmerView.m */; settings = {ASSET_TAGS = (); }; };
 		7F900C071BAE04AF00A50D0D /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F900C061BAE04AF00A50D0D /* todo.txt */; settings = {ASSET_TAGS = (); }; };
 		7FF927C01BAA202D0073885E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF927BF1BAA202D0073885E /* main.m */; };
 		7FF927C31BAA202D0073885E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF927C21BAA202D0073885E /* AppDelegate.m */; };
@@ -34,6 +39,18 @@
 		7F7B562D1BAE450200B70BEB /* TwitterVideoUploadActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterVideoUploadActivity.m; sourceTree = "<group>"; };
 		7F7B562F1BAE47EB00B70BEB /* videoTwitterActivity.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = videoTwitterActivity.xcassets; sourceTree = "<group>"; };
 		7F7B56311BAE734200B70BEB /* trim.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trim.mp4; sourceTree = "<group>"; };
+		7F7B56331BAF351300B70BEB /* PHAsset+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+Utility.m"; sourceTree = "<group>"; };
+		7F7B56341BAF351300B70BEB /* PHAsset+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+Utility.h"; sourceTree = "<group>"; };
+		7F7B56361BAF44F400B70BEB /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		7F7B56371BAF44F400B70BEB /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		7F7B563B1BAFA66100B70BEB /* ICGRulerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGRulerView.h; sourceTree = "<group>"; };
+		7F7B563C1BAFA66100B70BEB /* ICGRulerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGRulerView.m; sourceTree = "<group>"; };
+		7F7B563D1BAFA66100B70BEB /* ICGThumbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGThumbView.h; sourceTree = "<group>"; };
+		7F7B563E1BAFA66100B70BEB /* ICGThumbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGThumbView.m; sourceTree = "<group>"; };
+		7F7B563F1BAFA66100B70BEB /* ICGVideoTrimmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGVideoTrimmer.h; sourceTree = "<group>"; };
+		7F7B56401BAFA66100B70BEB /* ICGVideoTrimmerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGVideoTrimmerView.h; sourceTree = "<group>"; };
+		7F7B56411BAFA66100B70BEB /* ICGVideoTrimmerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGVideoTrimmerView.m; sourceTree = "<group>"; };
+		7F7B56451BAFB15300B70BEB /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		7F900C061BAE04AF00A50D0D /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo.txt; sourceTree = "<group>"; };
 		7FF927BA1BAA202D0073885E /* photopickershare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photopickershare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF927BE1BAA202D0073885E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +82,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F7B56391BAFA63C00B70BEB /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				7F7B56341BAF351300B70BEB /* PHAsset+Utility.h */,
+				7F7B56331BAF351300B70BEB /* PHAsset+Utility.m */,
+				7F7B56361BAF44F400B70BEB /* MBProgressHUD.m */,
+				7F7B56371BAF44F400B70BEB /* MBProgressHUD.h */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		7F7B563A1BAFA64C00B70BEB /* trimmer */ = {
+			isa = PBXGroup;
+			children = (
+				7F7B563B1BAFA66100B70BEB /* ICGRulerView.h */,
+				7F7B563C1BAFA66100B70BEB /* ICGRulerView.m */,
+				7F7B563D1BAFA66100B70BEB /* ICGThumbView.h */,
+				7F7B563E1BAFA66100B70BEB /* ICGThumbView.m */,
+				7F7B563F1BAFA66100B70BEB /* ICGVideoTrimmer.h */,
+				7F7B56401BAFA66100B70BEB /* ICGVideoTrimmerView.h */,
+				7F7B56411BAFA66100B70BEB /* ICGVideoTrimmerView.m */,
+				7F7B56451BAFB15300B70BEB /* constants.h */,
+			);
+			name = trimmer;
+			sourceTree = "<group>";
+		};
 		7F900C051BAE044D00A50D0D /* media */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +148,8 @@
 				7F7B56261BAE3D1B00B70BEB /* IMG_0240.mp4 */,
 				7F7B56281BAE3DF200B70BEB /* video.m4v */,
 				7F7B56241BAE3B4B00B70BEB /* wine.png */,
+				7F7B563A1BAFA64C00B70BEB /* trimmer */,
+				7F7B56391BAFA63C00B70BEB /* utils */,
 				7F900C051BAE044D00A50D0D /* media */,
 				7FF927C11BAA202D0073885E /* AppDelegate.h */,
 				7FF927C21BAA202D0073885E /* AppDelegate.m */,
@@ -203,13 +248,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FF927C61BAA202D0073885E /* ViewController.m in Sources */,
+				7F7B56421BAFA66100B70BEB /* ICGRulerView.m in Sources */,
+				7F7B56351BAF351300B70BEB /* PHAsset+Utility.m in Sources */,
 				7FF927F31BAA37B70073885E /* MediaAssetViewController.m in Sources */,
 				7FF927F71BAA39A40073885E /* MediaAlbumsListViewController.m in Sources */,
 				7F7B562E1BAE450200B70BEB /* TwitterVideoUploadActivity.m in Sources */,
 				7FF927F41BAA37B70073885E /* MediaGridViewCell.m in Sources */,
 				7FF927C31BAA202D0073885E /* AppDelegate.m in Sources */,
+				7F7B56381BAF44F400B70BEB /* MBProgressHUD.m in Sources */,
 				7FF927C01BAA202D0073885E /* main.m in Sources */,
+				7F7B56441BAFA66100B70BEB /* ICGVideoTrimmerView.m in Sources */,
 				7FF927F21BAA37B70073885E /* MediaAssetGridViewController.m in Sources */,
+				7F7B56431BAFA66100B70BEB /* ICGThumbView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,16 @@
  step 5 -- send twitter status
  
  
+ thanks to for explanation on twitter methods
+ https://github.com/nst/STTwitter/blob/f6302b0aaaa7d670dca94bb3145507982173e281/STTwitter/STTwitterAPI.m
+ 
+ and to for a good UIActivity subclass
+ https://github.com/AquaSupport/AQSTwitterActivity
+ 
+ 
+ //TOOD:
+  - add better error control on response
+ 
  
  */
 
@@ -97,7 +107,7 @@
     
     NSString *filenameext = [[url path] pathExtension];
     
-    if ([filenameext isEqualToString:@"mov"] || [filenameext isEqualToString:@"mp4"] || [filenameext isEqualToString:@"m4v"] ) {
+    if ([filenameext caseInsensitiveCompare:@"mov"] || [filenameext caseInsensitiveCompare:@"mp4"] || [filenameext caseInsensitiveCompare:@"m4v"] ) {
         return YES;
     }
     
@@ -418,7 +428,6 @@
     NSData *data = [NSData dataWithContentsOfURL:self.videoURL];
     
     if(data == nil) {
-        //TODO: error
         NSError *error = nil;
         error = [NSError errorWithDomain:@"com.laan.labs" code:200 userInfo:@{@"Error reason": @"File is Nil"}];
         
@@ -490,7 +499,10 @@
     NSInteger dataLength = [data length];
     
     if(dataLength == 0) {
-     //TODO: error
+        NSError *error = nil;
+        error = [NSError errorWithDomain:@"com.laan.labs" code:200 userInfo:@{@"Error reason": @"File is Nil"}];
+        
+        errorBlock(error);
     }
     
     NSString *fileName = [self.videoURL lastPathComponent];
