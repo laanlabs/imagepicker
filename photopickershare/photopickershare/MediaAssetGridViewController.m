@@ -258,7 +258,20 @@ static CGSize AssetGridThumbnailSize;
             //cell.backgroundColor = [UIColor blueColor];
             //[(MediaGridViewCell*)cell setThumbnailImage:result];
             cell.thumbnailImage = result;
-            NSLog(@"restult: %@",result);
+            
+            if (asset.mediaType == PHAssetMediaTypeVideo) {
+                [cell setMediaType:MediaFileTypeVideo withDuration:asset.duration];
+             }
+            
+            if( [[[[asset valueForKey:@"filename"] pathExtension] lowercaseString] isEqualToString:@"gif"]) {
+                [cell setMediaType:MediaFileTypeGif withDuration:asset.duration];
+   
+            }
+
+            
+            
+            
+            //NSLog(@"restult: %@",result);
         }
         
     }];

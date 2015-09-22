@@ -281,7 +281,7 @@ static NSString * const AdjustmentFormatIdentifier = @"com.laan.labs.photopicker
              
              if ([dataUTI isEqualToString:@"com.compuserve.gif"]) {
                  
-                 UIImage* animatedGif = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                 //UIImage* animatedGif = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
                  
                  self.imageView.image  = [UIImage animatedImageWithAnimatedGIFURL:url];
                  

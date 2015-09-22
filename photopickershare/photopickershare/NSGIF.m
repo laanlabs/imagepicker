@@ -14,6 +14,7 @@
 #define tolerance    @(0.01)
 
 typedef NS_ENUM(NSInteger, GIFSize) {
+    GIFSizeVeryVeryLow  = 1,
     GIFSizeVeryLow  = 2,
     GIFSizeLow      = 3,
     GIFSizeMedium   = 5,
@@ -37,14 +38,27 @@ typedef NS_ENUM(NSInteger, GIFSize) {
     float videoHeight = [[[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] naturalSize].height;
     
     GIFSize optimalSize = GIFSizeMedium;
-    if (videoWidth >= 1200 || videoHeight >= 1200)
-        optimalSize = GIFSizeVeryLow;
-    else if (videoWidth >= 800 || videoHeight >= 800)
-        optimalSize = GIFSizeLow;
-    else if (videoWidth >= 400 || videoHeight >= 400)
-        optimalSize = GIFSizeMedium;
-    else if (videoWidth < 400|| videoHeight < 400)
-        optimalSize = GIFSizeHigh;
+//    if (videoWidth >= 1200 || videoHeight >= 1200)
+//        optimalSize = GIFSizeVeryLow;
+//    else if (videoWidth >= 800 || videoHeight >= 800)
+//        optimalSize = GIFSizeLow;
+//    else if (videoWidth >= 400 || videoHeight >= 400)
+//        optimalSize = GIFSizeMedium;
+//    else if (videoWidth < 400|| videoHeight < 400)
+//        optimalSize = GIFSizeHigh;
+    
+        if (videoWidth >= 1200 || videoHeight >= 1200)
+            optimalSize = GIFSizeVeryVeryLow;
+        else if (videoWidth >= 800 || videoHeight >= 800)
+            optimalSize = GIFSizeVeryLow;
+        else if (videoWidth >= 400 || videoHeight >= 400)
+            optimalSize = GIFSizeVeryLow;
+        else if (videoWidth < 400|| videoHeight < 400)
+            optimalSize = GIFSizeLow;
+
+    
+    
+    
     
     // Get the length of the video in seconds
     float videoLength = (float)asset.duration.value/asset.duration.timescale;
@@ -166,6 +180,8 @@ typedef NS_ENUM(NSInteger, GIFSize) {
     generator.requestedTimeToleranceAfter = tol;
     
     CGImageRef imageRef = nil;
+    
+    gifSize = GIFSizeVeryLow;
     
     NSError *error = nil;
     for (NSValue *time in timePoints) {
