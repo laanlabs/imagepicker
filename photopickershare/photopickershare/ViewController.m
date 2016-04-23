@@ -9,6 +9,10 @@
 #import "ViewController.h"
 #import "MediaAlbumsListViewController.h"
 #import "TwitterVideoUploadActivity.h"
+
+#import "VineVideoUploadActivity.h"
+
+
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "PHAsset+Utility.h"
 #import "MBProgressHUD.h"
@@ -61,6 +65,7 @@
     [shareBtn addTarget:self action:@selector(shareButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:shareBtn];
     
+ 
     
 
     
@@ -302,6 +307,7 @@
 #pragma mark - SHARE
 
 
+
 - (void)shareButtonClicked:(id)sender {
     
     
@@ -316,7 +322,7 @@
     
     UIImage * image = [UIImage imageNamed:@"wine.png"];
     
-    NSString*thePath=[[NSBundle mainBundle] pathForResource:@"trim" ofType:@"mp4"];
+    NSString*thePath=[[NSBundle mainBundle] pathForResource:@"test" ofType:@"MOV"];
     NSURL*theurl=[NSURL fileURLWithPath:thePath];
     
     
@@ -334,10 +340,13 @@
     
     TwitterVideoUploadActivity *activity = [[TwitterVideoUploadActivity alloc] init];
     
+    VineVideoUploadActivity *activityVine = [[VineVideoUploadActivity alloc] init];
+
+    
     //-- initialising the activity view controller
     UIActivityViewController *avc = [[UIActivityViewController alloc]
                                      initWithActivityItems:shareItems
-                                     applicationActivities:@[activity]];
+                                     applicationActivities:@[activity,activityVine]];
     
     
     //avc.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard ];
