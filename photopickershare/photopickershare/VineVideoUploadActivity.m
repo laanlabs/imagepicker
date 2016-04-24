@@ -252,11 +252,12 @@ shows some end points
     
     _croppedVideoURL = [VineVideoUploadActivity createURLFromTempWithName:@"output.mp4"];
     
-    [self cropVideoSquareFrom:_videoURL to:_croppedVideoURL];
+    //[self cropVideoSquareFrom:_videoURL to:_croppedVideoURL];
     
     [self convertVideoFrom:_videoURL to:_croppedVideoURL];
 
-    
+    //_croppedVideoURL = _videoURL;
+    //[self stepTwo_LoginVine];
 }
 
 

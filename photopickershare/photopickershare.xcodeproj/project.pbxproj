@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F3BBA951CCC67E000AE3CD7 /* mov2.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7F3BBA941CCC67E000AE3CD7 /* mov2.mov */; };
 		7F6AD8011BD87F7F008FA69F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6AD8001BD87F7E008FA69F /* Storyboard.storyboard */; };
 		7F7B56251BAE3B4B00B70BEB /* wine.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7B56241BAE3B4B00B70BEB /* wine.png */; };
 		7F7B56271BAE3D1B00B70BEB /* IMG_0240.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7F7B56261BAE3D1B00B70BEB /* IMG_0240.mp4 */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F3BBA941CCC67E000AE3CD7 /* mov2.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = mov2.mov; sourceTree = "<group>"; };
 		7F6AD8001BD87F7E008FA69F /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		7F7B56241BAE3B4B00B70BEB /* wine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wine.png; sourceTree = "<group>"; };
 		7F7B56261BAE3D1B00B70BEB /* IMG_0240.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0240.mp4; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				7F900C061BAE04AF00A50D0D /* todo.txt */,
 				7F7B56311BAE734200B70BEB /* trim.mp4 */,
 				7FB284D91CCC6418002CE063 /* shortClip.mp4 */,
+				7F3BBA941CCC67E000AE3CD7 /* mov2.mov */,
 				7FB9E4221CCBD79500D64E6F /* test.MOV */,
 				7F7B56261BAE3D1B00B70BEB /* IMG_0240.mp4 */,
 				7F7B56281BAE3DF200B70BEB /* video.m4v */,
@@ -351,6 +354,7 @@
 				7F900C071BAE04AF00A50D0D /* todo.txt in Resources */,
 				7F7B56291BAE3DF200B70BEB /* video.m4v in Resources */,
 				7F6AD8011BD87F7F008FA69F /* Storyboard.storyboard in Resources */,
+				7F3BBA951CCC67E000AE3CD7 /* mov2.mov in Resources */,
 				7F7B56271BAE3D1B00B70BEB /* IMG_0240.mp4 in Resources */,
 				7FF927CB1BAA202D0073885E /* Images.xcassets in Resources */,
 				7F7B56321BAE734200B70BEB /* trim.mp4 in Resources */,
