@@ -322,7 +322,7 @@
     
     UIImage * image = [UIImage imageNamed:@"wine.png"];
     
-    NSString*thePath=[[NSBundle mainBundle] pathForResource:@"test" ofType:@"MOV"];
+    NSString*thePath=[[NSBundle mainBundle] pathForResource:@"shortClip" ofType:@"mp4"];
     NSURL*theurl=[NSURL fileURLWithPath:thePath];
     
     

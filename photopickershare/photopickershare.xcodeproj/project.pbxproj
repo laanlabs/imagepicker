@@ -24,6 +24,7 @@
 		7F7B56521BAFCEB100B70BEB /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56511BAFCEB100B70BEB /* AnimatedGIFImageSerialization.m */; };
 		7F7B56551BAFD23500B70BEB /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7B56541BAFD23500B70BEB /* UIImage+animatedGIF.m */; };
 		7F900C071BAE04AF00A50D0D /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F900C061BAE04AF00A50D0D /* todo.txt */; };
+		7FB284DA1CCC6418002CE063 /* shortClip.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7FB284D91CCC6418002CE063 /* shortClip.mp4 */; };
 		7FB9E3E31CC9090900D64E6F /* VineVideoUploadActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9E3E21CC9090900D64E6F /* VineVideoUploadActivity.m */; };
 		7FB9E3FD1CCB84BF00D64E6F /* VineActivity.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9E3FC1CCB84BF00D64E6F /* VineActivity.xcassets */; };
 		7FB9E4011CCB97AF00D64E6F /* VineVideoUploadActivityDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9E4001CCB97AF00D64E6F /* VineVideoUploadActivityDialog.m */; };
@@ -78,6 +79,7 @@
 		7F7B56531BAFD23500B70BEB /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		7F7B56541BAFD23500B70BEB /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		7F900C061BAE04AF00A50D0D /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo.txt; sourceTree = "<group>"; };
+		7FB284D91CCC6418002CE063 /* shortClip.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = shortClip.mp4; sourceTree = "<group>"; };
 		7FB9E3E11CC9090900D64E6F /* VineVideoUploadActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VineVideoUploadActivity.h; sourceTree = "<group>"; };
 		7FB9E3E21CC9090900D64E6F /* VineVideoUploadActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VineVideoUploadActivity.m; sourceTree = "<group>"; };
 		7FB9E3FC1CCB84BF00D64E6F /* VineActivity.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = VineActivity.xcassets; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				7FB9E4051CCBB8E400D64E6F /* networking */,
 				7F900C061BAE04AF00A50D0D /* todo.txt */,
 				7F7B56311BAE734200B70BEB /* trim.mp4 */,
+				7FB284D91CCC6418002CE063 /* shortClip.mp4 */,
 				7FB9E4221CCBD79500D64E6F /* test.MOV */,
 				7F7B56261BAE3D1B00B70BEB /* IMG_0240.mp4 */,
 				7F7B56281BAE3DF200B70BEB /* video.m4v */,
@@ -352,6 +355,7 @@
 				7FF927CB1BAA202D0073885E /* Images.xcassets in Resources */,
 				7F7B56321BAE734200B70BEB /* trim.mp4 in Resources */,
 				7FB9E3FD1CCB84BF00D64E6F /* VineActivity.xcassets in Resources */,
+				7FB284DA1CCC6418002CE063 /* shortClip.mp4 in Resources */,
 				7FC9E6BC1BB1009D0072DF7B /* videoIcon@2x.png in Resources */,
 				7F7B56301BAE47EB00B70BEB /* videoTwitterActivity.xcassets in Resources */,
 				7F7B56251BAE3B4B00B70BEB /* wine.png in Resources */,

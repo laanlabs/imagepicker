@@ -18,6 +18,25 @@ shows some end points
  video upload
  https://github.com/bangslosan/videoslide/blob/66e2359443d5d2d2f8a479da1a0c23c91115dd2a/VideoSlide/source/Manager/SCVineManager.m
  
+ 
+ 
+ CHANNEL NUMBERS
+ 
+ 'comedy'                => 1,
+ 'art-and-experimental'  => 2,
+ 'nature'                => 5,
+ 'family'                => 7,
+ 'special-fx'            => 8,
+ 'sports'                => 9,
+ 'food'                  => 10,
+ 'music'                 => 11,
+ 'beauty-and-fashion'    => 12,
+ 'health-and-fitness'    => 13,
+ 'news-and-politics'     => 14,
+ 'animals'               => 17
+ 
+ 
+ 
  */
 
 #import "VineVideoUploadActivity.h"
@@ -235,6 +254,9 @@ shows some end points
     
     [self cropVideoSquareFrom:_videoURL to:_croppedVideoURL];
     
+    [self convertVideoFrom:_videoURL to:_croppedVideoURL];
+
+    
 }
 
 
@@ -291,14 +313,15 @@ shows some end points
 
     
     [request setValue:@"video/mp4" forHTTPHeaderField:@"Content-Type"];
-    
-    
-    [request setValue:@"ios/1.3.1" forHTTPHeaderField:@"X-Vine-Client"];
-    [request setValue:@"en;q=1, fr;q=0.9, de;q=0.8, ja;q=0.7, nl;q=0.6, it;q=0.5" forHTTPHeaderField:@"Accept-Language"];
-    [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
     [request setValue:_vineInfo.key forHTTPHeaderField:@"vine-session-id"];
-    [request setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
-    [request setValue:@"iphone/1.3.1 (iPad; iOS 6.1.3; Scale/1.00)" forHTTPHeaderField:@"User-Agent"];
+
+    
+    //[request setValue:@"ios/1.3.1" forHTTPHeaderField:@"X-Vine-Client"];
+    //[request setValue:@"en;q=1, fr;q=0.9, de;q=0.8, ja;q=0.7, nl;q=0.6, it;q=0.5" forHTTPHeaderField:@"Accept-Language"];
+    //[request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+    //[request setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
+    //[request setValue:@"iphone/1.3.1 (iPad; iOS 6.1.3; Scale/1.00)" forHTTPHeaderField:@"User-Agent"];
+    
     [request setHTTPMethod: @"PUT"];
     
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[videoData length]] forHTTPHeaderField:@"Content-Length"];
@@ -313,7 +336,7 @@ shows some end points
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
-        
+         NSLog(@"JSON: %@", responseObject);
         
         NSHTTPURLResponse *res = (NSHTTPURLResponse*)operation.response;
         NSDictionary *dict = res.allHeaderFields;
@@ -352,14 +375,17 @@ shows some end points
     
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    
-    [request setValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"ios/1.3.1" forHTTPHeaderField:@"X-Vine-Client"];
-    [request setValue:@"en;q=1, fr;q=0.9, de;q=0.8, ja;q=0.7, nl;q=0.6, it;q=0.5" forHTTPHeaderField:@"Accept-Language"];
-    [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
     [request setValue:_vineInfo.key forHTTPHeaderField:@"vine-session-id"];
+
+    [request setValue:@"image/jpeg" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
-    [request setValue:@"iphone/1.3.1 (iPad; iOS 6.1.3; Scale/1.00)" forHTTPHeaderField:@"User-Agent"];
+    
+    //[request setValue:@"ios/1.3.1" forHTTPHeaderField:@"X-Vine-Client"];
+    //[request setValue:@"en;q=1, fr;q=0.9, de;q=0.8, ja;q=0.7, nl;q=0.6, it;q=0.5" forHTTPHeaderField:@"Accept-Language"];
+    //[request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+    //[request setValue:@"iphone/1.3.1 (iPad; iOS 6.1.3; Scale/1.00)" forHTTPHeaderField:@"User-Agent"];
+    
+    
     [request setHTTPMethod: @"PUT"];
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[data length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:data];
@@ -372,7 +398,7 @@ shows some end points
     
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        
+         NSLog(@"JSON: %@", responseObject);
         
         
         NSHTTPURLResponse *res = (NSHTTPURLResponse*)operation.response;
@@ -413,15 +439,22 @@ shows some end points
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"ios/1.3.1" forHTTPHeaderField:@"X-Vine-Client"];
-    [request setValue:@"en;q=1" forHTTPHeaderField:@"Accept-Language"];
-    [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
-    [request setValue:_vineInfo.key forHTTPHeaderField:@"vine-session-id"];
-    [request setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
-    [request setValue:@"iphone/1.3.1 (iPad; iOS 6.1.3; Scale/1.00)" forHTTPHeaderField:@"User-Agent"];
     
-    NSString *strParams = [NSString stringWithFormat:@"{\"videoUrl\":\"%@\",\"thumbnailUrl\":\"%@\",\"channelId\":%@,\"description\":\"%@\",\"entities\":[]}", _videoUploadedURL, _thumbnailUploadedURL, @"1", _vineInfo.caption];
+    [request setValue:_vineInfo.key forHTTPHeaderField:@"vine-session-id"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    
+    //[request setValue:@"ios/1.3.1" forHTTPHeaderField:@"X-Vine-Client"];
+    //[request setValue:@"en;q=1" forHTTPHeaderField:@"Accept-Language"];
+    //[request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+    //[request setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
+    //[request setValue:@"iphone/1.3.1 (iPad; iOS 6.1.3; Scale/1.00)" forHTTPHeaderField:@"User-Agent"];
+    
+    
+    //NSString *strParams = [NSString stringWithFormat:@"{\"videoUrl\":\"%@\",\"thumbnailUrl\":\"%@\",\"channelId\":%@,\"description\":\"%@\",\"entities\":[]}", _videoUploadedURL, _thumbnailUploadedURL, @"1", _vineInfo.caption];
+    
+        NSString *strParams = [NSString stringWithFormat:@"{\"videoUrl\":\"%@\",\"thumbnailUrl\":\"%@\",\"description\":\"hello\",\"channelId\":1,\"entities\":[]}", _videoUploadedURL, _thumbnailUploadedURL ];
+    
     NSData *dataBody = [strParams dataUsingEncoding:NSUTF8StringEncoding];
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[dataBody length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPMethod: @"POST"];
@@ -530,16 +563,10 @@ shows some end points
 
 
 
-
-
-
-
-- (void) cropVideoSquareFrom:(NSURL*)inputURL to:(NSURL*)exportUrl {
+- (void) generateThumbFrom:(NSURL*)inputURL {
     
-    //load our movie Asset
-    //AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"OriginalVideo" ofType:@"mov"]]];
+    
     AVAsset *asset = [AVAsset assetWithURL:inputURL];
-
     
     //grab a thum
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
@@ -549,6 +576,16 @@ shows some end points
     _thumbnail = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
     
+}
+
+
+
+- (void) cropVideoSquareFrom:(NSURL*)inputURL to:(NSURL*)exportUrl {
+    
+    //load our movie Asset
+    //AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"OriginalVideo" ofType:@"mov"]]];
+    AVAsset *asset = [AVAsset assetWithURL:inputURL];
+
     
     
     //create an avassetrack with our asset
@@ -604,6 +641,8 @@ shows some end points
          dispatch_async(dispatch_get_main_queue(), ^{
 
              
+             [self generateThumbFrom:self.croppedVideoURL];
+             
              [self stepTwo_LoginVine];
              
          });
@@ -611,7 +650,141 @@ shows some end points
 }
 
 
-
+- (void)convertVideoFrom:(NSURL*)fromURL to:(NSURL*)toURL
+{
+    
+    NSError *error = nil;
+    
+    AVAssetWriter *videoWriter = [[AVAssetWriter alloc] initWithURL:toURL fileType:AVFileTypeQuickTimeMovie error:&error];
+    NSParameterAssert(videoWriter);
+    
+    NSDictionary *videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   AVVideoCodecH264, AVVideoCodecKey,
+                                   [NSNumber numberWithInt:480], AVVideoWidthKey,
+                                   [NSNumber numberWithInt:480], AVVideoHeightKey,
+                                   //codecSettings, AVVideoCompressionPropertiesKey,
+                                   AVVideoScalingModeResizeAspectFill
+                                   ,AVVideoScalingModeKey, nil];
+    
+    AVAssetWriterInput* videoWriterInput = [AVAssetWriterInput
+                                            assetWriterInputWithMediaType:AVMediaTypeVideo
+                                            outputSettings:videoSettings];
+    
+    NSParameterAssert(videoWriterInput);
+    NSParameterAssert([videoWriter canAddInput:videoWriterInput]);
+    
+    
+    
+    videoWriterInput.expectsMediaDataInRealTime = YES;
+    
+    [videoWriter addInput:videoWriterInput];
+    
+    AVAsset *avAsset = [[AVURLAsset alloc] initWithURL:fromURL options:nil];
+    NSError *aerror = nil;
+    AVAssetReader *reader = [[AVAssetReader alloc] initWithAsset:avAsset error:&aerror];
+    
+    AVAssetTrack *videoTrack = [[avAsset tracksWithMediaType:AVMediaTypeVideo]objectAtIndex:0];
+    
+    videoWriterInput.transform = videoTrack.preferredTransform;
+    
+    NSDictionary *videoOptions = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange], kCVPixelBufferPixelFormatTypeKey,
+                                  [NSNumber numberWithInt:480], kCVPixelBufferWidthKey,
+                                  [NSNumber numberWithInt:480], kCVPixelBufferHeightKey,
+                                  nil];
+    
+    AVAssetReaderTrackOutput *asset_reader_output = [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTrack outputSettings:videoOptions];
+    
+    [reader addOutput:asset_reader_output];
+    // audio setup
+    AVAssetWriterInput *audioWriterInput;
+    AVAssetReader *audioReader;
+    AVAssetTrack *audioTrack;
+    AVAssetReaderOutput *audioReaderOutput;
+    if ([[avAsset tracksWithMediaType:AVMediaTypeAudio] count] > 0) {
+        audioWriterInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeAudio outputSettings:nil];
+        audioReader = [AVAssetReader assetReaderWithAsset:avAsset error:nil];
+        audioTrack = [[avAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0];
+        audioReaderOutput = [AVAssetReaderTrackOutput assetReaderTrackOutputWithTrack:audioTrack outputSettings:nil];
+        [audioReader addOutput:audioReaderOutput];
+        
+        [videoWriter addInput:audioWriterInput];
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+        
+        [videoWriter startWriting];
+        [videoWriter startSessionAtSourceTime:kCMTimeZero];
+        [reader startReading];
+        
+        CMSampleBufferRef buffer;
+        
+        
+        while ([reader status]==AVAssetReaderStatusReading)
+        {
+            if(![videoWriterInput isReadyForMoreMediaData])
+                continue;
+            
+            buffer = [asset_reader_output copyNextSampleBuffer];
+            
+            NSLog(@"READING");
+            
+            if(buffer){
+                [videoWriterInput appendSampleBuffer:buffer];
+                CFRelease(buffer);
+            }
+            
+            NSLog(@"WRITTING...");
+            
+            
+        }
+        
+        //Finish the session:
+        [videoWriterInput markAsFinished];
+        
+        if (audioWriterInput) {
+            [videoWriter startSessionAtSourceTime:kCMTimeZero];
+            [audioReader startReading];
+            
+            while (audioWriterInput.readyForMoreMediaData) {
+                CMSampleBufferRef audioSampleBuffer;
+                if ([audioReader status] == AVAssetReaderStatusReading &&
+                    (audioSampleBuffer = [audioReaderOutput copyNextSampleBuffer])) {
+                    if (audioSampleBuffer) {
+                        printf("write audio  ");
+                        [audioWriterInput appendSampleBuffer:audioSampleBuffer];
+                    }
+                    CFRelease(audioSampleBuffer);
+                } else {
+                    [audioWriterInput markAsFinished];
+                    switch ([audioReader status]) {
+                        case AVAssetReaderStatusCompleted:
+                        {
+                            
+                        }
+                    }
+                }
+            }
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^(void) {
+            [videoWriter endSessionAtSourceTime:avAsset.duration];
+            [videoWriter finishWritingWithCompletionHandler:^{
+   
+            
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self generateThumbFrom:self.croppedVideoURL];
+                    
+                    [self stepTwo_LoginVine];
+                    
+                });
+            
+            }];
+            
+   
+            
+        });
+    });
+    
+}
 
 
 
